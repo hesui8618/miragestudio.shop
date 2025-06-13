@@ -187,6 +187,25 @@ img {
     color: #555;
 }
 
+/* Products Section */
+.products-section {
+    padding: 5rem 0;
+    text-align: center;
+    background-color: var(--background-color);
+}
+
+.products-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.products-section p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: #555;
+}
+
 /* Technology Section */
 .tech-section {
     padding: 5rem 0;
