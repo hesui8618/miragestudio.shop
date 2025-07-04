@@ -52,6 +52,7 @@ img {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .main-header .container {
@@ -259,6 +260,38 @@ img {
     color: #555;
 }
 
+/* Video Demo Section */
+.video-demo-section {
+    padding: 5rem 0;
+    text-align: center;
+    background-color: var(--background-color);
+}
+
+.video-demo-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.video-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.video-placeholder-text {
+    margin-top: 1rem;
+    color: #888;
+    font-style: italic;
+}
+
 /* Footer */
 .main-footer {
     background-color: #f5f5f7;
@@ -314,12 +347,126 @@ img {
     font-size: 0.9rem;
 }
 
-/* Responsive */
+/* ===== JavaScript交互功能样式支持 ===== */
+
+/* 移动端汉堡菜单按钮 */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+/* 汉堡菜单动画效果 */
+.mobile-menu-btn.menu-active .hamburger-line:nth-child(1) {
+    transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.mobile-menu-btn.menu-active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.menu-active .hamburger-line:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+}
+
+/* 导航栏滚动效果 */
+.main-header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-header.nav-hidden {
+    transform: translateY(-100%);
+}
+
+/* 页面滚动进入动画 */
+.animate-ready {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 特殊动画延迟 */
+.feature-card.animate-ready:nth-child(1) { transition-delay: 0.1s; }
+.feature-card.animate-ready:nth-child(2) { transition-delay: 0.2s; }
+.feature-card.animate-ready:nth-child(3) { transition-delay: 0.3s; }
+
+/* 菜单打开时阻止背景滚动 */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* 响应式布局优化 */
 @media (max-width: 768px) {
-    .main-nav {
-        display: none; /* Simple hide for now, JS needed for toggle menu */
+    /* 显示汉堡菜单按钮 */
+    .mobile-menu-btn {
+        display: flex;
     }
 
+    /* 移动端导航菜单 */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 6rem 2rem 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-nav.nav-active {
+        right: 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-nav ul li {
+        margin: 1rem 0;
+        margin-left: 0;
+    }
+
+    .main-nav a {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        display: block;
+        text-align: center;
+    }
+
+    /* CTA按钮在移动端隐藏，避免布局冲突 */
+    .cta-button {
+        display: none;
+    }
+
+    /* 移动端hero区域优化 */
     .hero-section h1 {
         font-size: 2.5rem;
     }
@@ -328,13 +475,21 @@ img {
         font-size: 1.2rem;
     }
 
+    /* 移动端特性网格 */
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
+    .feature-card {
+        padding: 2rem 1.5rem;
+    }
+
+    /* 移动端技术亮点 */
     .tech-highlight {
         flex-direction: column;
         text-align: center;
+        gap: 2rem;
     }
 
     .tech-highlight:nth-child(odd) .tech-content {
@@ -344,6 +499,16 @@ img {
         order: 2;
     }
 
+    .tech-content h3 {
+        font-size: 1.5rem;
+    }
+
+    /* 移动端视频 */
+    .video-wrapper iframe {
+        border-radius: 10px;
+    }
+
+    /* 移动端footer */
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -352,5 +517,49 @@ img {
     .footer-links, .footer-social {
         margin-left: 0;
         margin-top: 2rem;
+    }
+}
+
+/* 平板端优化 */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+
+    .features-grid {
+        gap: 1.5rem;
+    }
+
+    .tech-highlight {
+        gap: 3rem;
+    }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .hero-section h1 {
+        font-size: 4rem;
+    }
+
+    .features-grid {
+        gap: 3rem;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .main-header,
+    .mobile-menu-btn,
+    .cta-button {
+        display: none;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
     }
 } 
